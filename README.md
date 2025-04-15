@@ -1,7 +1,10 @@
 ```markdown
 # 🚀 React + Vite Template
 
-Welcome to the **React + Vite Template**! This template is your gateway to building blazing-fast React applications using **Vite**, with features like **Hot Module Replacement (HMR)** and essential **ESLint** configurations. 🎉
+Welcome to the **React + Vite Template**!
+This template is your gateway to building blazing-fast React applications using **Vite**, with features like:
+- **Hot Module Replacement (HMR)**
+- Essential **ESLint** configurations. 🎉
 
 ---
 
