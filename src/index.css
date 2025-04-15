@@ -1,0 +1,145 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body { /* Changed background color to baby pink */
+  margin: 0;
+  /*display: flex;*/
+  background-color: hsl(340, 100%, 97%); /* Base Background Color */
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Added flowing font */
+body, h1, p, button {
+  font-family: 'Sacramento', cursive, 'Playfair Display', serif, 'Quicksand', sans-serif; /* Elegant fonts */
+}
+
+/* Updated text color for better contrast */
+body {
+  color: #333; /* Darker text color */
+}
+
+h1 {
+  color: #e0b3cc; /* Blush */
+}
+
+p {
+  color: #b3b3cc; /* Soft Lavender */
+}
+
+/* Updated button styles to fit the theme */
+button {
+  background-color: #f2d9e6; /* Blush */
+  border: none;
+  color: #333;
+  transition: background-color 0.3s ease; /* Added transition for smoother hover effect */
+}
+
+button:hover {
+  background-color: #e6b3cc; /* Soft Lavender */
+}
+
+/* Added a slight border radius to buttons */
+button {
+  border-radius: 20px; /* Soft rounded corners */
+}
+
+/* Subtle floating elements (hearts) */
+.floating-heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: lightpink;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  animation: float 10s infinite;
+}
+
+.floating-heart:nth-child(even) {
+  background-color: lavender;
+  animation-duration: 12s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+/* Handwritten note style */
+.handwritten-note {
+  font-family: 'Sacramento', cursive; /* Handwriting font */
+  background-image: url('paper-texture.png'); /* Add a subtle paper texture */
+  background-size: cover;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  white-space: pre-wrap; /* Preserve line breaks */
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+/* Optional: Add more visual flair or animations as needed */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
