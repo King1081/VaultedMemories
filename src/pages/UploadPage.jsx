@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import { db } from '../firebase';
+import { collection, addDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 function UploadPage({ onMemoryAdded }) {
   const [photo, setPhoto] = useState(null);
   const [caption, setCaption] = useState('');
@@ -50,11 +52,27 @@ function UploadPage({ onMemoryAdded }) {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (photo && caption && category && date) {
-      onMemoryAdded({ photo, caption, category, date });
-      handleClear();
+      try {
+        const storageRef = ref(storage, `images/${photo.name}`);
+        await uploadBytes(storageRef, photo);
+        const imageUrl = await getDownloadURL(storageRef);
+
+        const memory = {
+          caption,
+          category,
+          date,
+          imageUrl,
+          createdAt: new Date(),
+        };
+        await addDoc(collection(db, "memories"), memory);
+        onMemoryAdded(memory);
+        handleClear();
+      } catch (error) {
+        console.error("Error adding memory: ", error);
+      }
     }
   };
 

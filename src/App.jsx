@@ -3,12 +3,15 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import NavBar from './components/NavBar';
 import { useReactToPrint } from 'react-to-print';
+import { auth, db } from './firebase'; // Import Firebase auth and db
 import AppRoutes from './routes/AppRoutes';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [memories, setMemories] = useState([]);
   const [dedication, setDedication] = useState('');
   const [adminMode, setAdminMode] = useState(false);
+  const admins = ["someAdminUID"]; // Replace with actual admin UIDs
 
   useEffect(() => {
     const storedMemories = localStorage.getItem('memories');
@@ -22,6 +25,17 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user && admins.includes(user.uid)) {
+        setAdminMode(true);
+      }
+      setIsLoggedIn(!!user); // Set isLoggedIn to true if user exists, false otherwise
+    });
+    return () => unsubscribe(); // Cleanup subscription on unmount
+  }, []);
+
+
+  useEffect(() => {
     localStorage.setItem('memories', JSON.stringify(memories));
   }, [memories]);
 
@@ -29,8 +43,13 @@ function App() {
     localStorage.setItem('dedication', dedication);
   }, [dedication]);
 
-  const addMemory = (memory) => {
-    setMemories([...memories, memory]);
+  const addMemory = async (memory) => {
+    try {
+      const docRef = await addDoc(collection(db, "memories"), memory);
+      setMemories([...memories, { ...memory, id: docRef.id }]);
+    } catch (error) {
+      console.error("Error adding memory: ", error);
+    }
   };
 
   const updateMemory = (index, updatedMemory) => {
@@ -76,6 +95,7 @@ function App() {
           dedication={dedication}
           updateDedication={updateDedication}
           adminMode={adminMode}
+          isLoggedIn={isLoggedIn}
         />
     </div>
   );
