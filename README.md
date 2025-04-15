@@ -1,5 +1,3 @@
-Here is an updated and more visually appealing version of your `README.md` file:
-
 ```markdown
 # 🚀 React + Vite Template
 
@@ -86,5 +84,3 @@ Here's a sneak peek of what your development environment could look like:
 
 Feel free to customize and make this template truly yours! 🚀
 ```
-
-This version enhances readability with emojis, sections, and formatting, making it more engaging and informative. Let me know if you'd like further adjustments!
