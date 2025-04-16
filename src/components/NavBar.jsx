@@ -1,33 +1,27 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function NavigationBar() {
-  const location = useLocation();
-
+const NavBar = () => {
   return (
-    <nav className="bg-gray-100 p-4">
-      <ul className="flex space-x-4">
-        {["/", "/categories", "/upload", "/preview", "/print"].map((path) => {
-          const label = path === "/" ? "Home" : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
-          const isActive = location.pathname === path;
-          return (
-            <li key={path}>
-              <Link
-                to={path}
-                className={`
-                  ${
-                    isActive ? "text-blue-700 font-bold" : "text-blue-500"
-                  } hover:underline
-                `}
-              >
-                {label}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+    <nav className="bg-purple-500 p-4 shadow-md">
+      <div className="container mx-auto flex justify-between items-center">
+        <Link to="/" className="text-white text-2xl font-bold">
+          Vaulted Memories
+        </Link>
+        <div className="space-x-4">
+          <Link to="/categories" className="text-white hover:text-gray-200">
+            Categories
+          </Link>
+          <Link to="/upload" className="text-white hover:text-gray-200">
+            Upload
+          </Link>
+          <Link to="/login" className="text-white hover:text-gray-200">
+            Login
+          </Link>
+        </div>
+      </div>
     </nav>
   );
-}
+};
 
-export default NavigationBar;
+export default NavBar;

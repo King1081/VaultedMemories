@@ -4,6 +4,7 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-ki
 import NavBar from './components/NavBar';
 import { useReactToPrint } from 'react-to-print';
 import { auth, db } from './firebase'; // Import Firebase auth and db
+import { addDoc, collection } from 'firebase/firestore'; // Add missing imports
 import AppRoutes from './routes/AppRoutes';
 
 function App() {
@@ -34,7 +35,6 @@ function App() {
     return () => unsubscribe(); // Cleanup subscription on unmount
   }, []);
 
-
   useEffect(() => {
     localStorage.setItem('memories', JSON.stringify(memories));
   }, [memories]);
@@ -49,6 +49,8 @@ function App() {
       setMemories([...memories, { ...memory, id: docRef.id }]);
     } catch (error) {
       console.error("Error adding memory: ", error);
+      // Implement user feedback for errors
+      alert("Failed to add memory. Please try again.");
     }
   };
 
@@ -63,6 +65,7 @@ function App() {
     newMemories.splice(index, 1);
     setMemories(newMemories);
   };
+
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (active.id !== over.id) {
@@ -73,9 +76,11 @@ function App() {
       });
     }
   };
+
   const updateDedication = (newDedication) => {
     setDedication(newDedication);
   };
+
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -85,20 +90,18 @@ function App() {
 
   return (
     <div>
-        <h1>Simple Test Component</h1>
-    <p>If you see this, the app is working!</p>
-        <NavBar />
-        <AppRoutes
-          memories={memories}
-          addMemory={addMemory}
-          updateMemory={updateMemory}
-          deleteMemory={deleteMemory}
-          handleDragEnd={handleDragEnd}
-          dedication={dedication}
-          updateDedication={updateDedication}
-          adminMode={adminMode}
-          isLoggedIn={isLoggedIn}
-        /> 
+      <NavBar />
+      <AppRoutes
+        memories={memories}
+        addMemory={addMemory}
+        updateMemory={updateMemory}
+        deleteMemory={deleteMemory}
+        handleDragEnd={handleDragEnd}
+        dedication={dedication}
+        updateDedication={updateDedication}
+        adminMode={adminMode}
+        isLoggedIn={isLoggedIn}
+      /> 
     </div>
   );
 }

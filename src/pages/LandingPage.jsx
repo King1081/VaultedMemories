@@ -1,8 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import Card from '../components/Card';
 
 const LandingPage = () => {
+  const memories = [
+    {
+      title: 'Memory 1',
+      description: 'Description of memory 1.',
+      image: 'https://via.placeholder.com/150',
+    },
+    {
+      title: 'Memory 2',
+      description: 'Description of memory 2.',
+      image: 'https://via.placeholder.com/150',
+    },
+    {
+      title: 'Memory 3',
+      description: 'Description of memory 3.',
+      image: 'https://via.placeholder.com/150',
+    },
+  ];
+
   return (
     <motion.div
       className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 text-gray-800 p-8"
@@ -28,22 +47,27 @@ const LandingPage = () => {
         Create a beautiful memory book filled with your most cherished moments.
       </motion.p>
       <motion.div
-        className="flex space-x-4"
+        className="flex flex-wrap justify-center space-x-4 space-y-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.6 }}
       >
-        <Link to="/categories">
+        {memories.map((memory, index) => (
+          <Card key={index} title={memory.title} description={memory.description} image={memory.image} />
+        ))}
+      </motion.div>
+      <motion.div
+        className="flex space-x-4 mt-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+      >
+        <Link to="/categories" aria-label="Start your journey">
           <button className="bg-purple-300 hover:bg-purple-400 text-white font-bold py-3 px-6 rounded-full shadow-lg">
             Start Your Journey
           </button>
         </Link>
       </motion.div>
-      <div className="absolute bottom-0 left-0 w-full h-48 pointer-events-none" aria-hidden="true">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <polygon fill="hsl(340, 100%, 97%)" points="0,0 0,100 100,100" />
-          </svg>
-        </div>
     </motion.div>
   );
 };
