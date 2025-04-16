@@ -85,6 +85,8 @@ function App() {
 
   return (
     <div>
+        <h1>Simple Test Component</h1>
+    <p>If you see this, the app is working!</p>
         <NavBar />
         <AppRoutes
           memories={memories}
@@ -96,7 +98,7 @@ function App() {
           updateDedication={updateDedication}
           adminMode={adminMode}
           isLoggedIn={isLoggedIn}
-        />
+        /> 
     </div>
   );
 }
